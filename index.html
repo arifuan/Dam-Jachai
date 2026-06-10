@@ -344,36 +344,33 @@
 
   <script>
 
-    // ====================================
-    // HIDDEN ADMIN TRIGGER
-    // ====================================
+// ====================================
+// HIDDEN ADMIN TRIGGER
+// ====================================
 
-    let clickCount = 0;
-    let clickTimer;
+let clickCount = 0;
+let clickTimer;
 
-    const logoTrigger = document.getElementById("logoTrigger");
+const logoTrigger = document.getElementById("logoTrigger");
+console.log("Logo element:", logoTrigger); // এটা দিয়ে চেক করবে এলিমেন্ট পাচ্ছে কিনা
 
-    logoTrigger.addEventListener("click", () => {
+logoTrigger.addEventListener("click", () => {
+  clickCount++;
+  console.log("Click count:", clickCount); // প্রত্যেক ক্লিকে কত হইলো দেখাবে
 
-      clickCount++;
+  clearTimeout(clickTimer);
 
-      clearTimeout(clickTimer);
+  clickTimer = setTimeout(() => {
+    clickCount = 0;
+    console.log("Reset count"); // 2 সেকেন্ডে 5টা না হলে রিসেট
+  }, 2000); // 1 সেকেন্ড থেকে 2 সেকেন্ড করলাম
 
-      clickTimer = setTimeout(() => {
-        clickCount = 0;
-      }, 1000);
-
-      if(clickCount >= 5){
-        document.getElementById("adminModal").style.display = "flex";
-        clickCount = 0;
-      }
-
-    });
-
-    function closeAdmin(){
-      document.getElementById("adminModal").style.display = "none";
-    }
-
+  if(clickCount >= 5){
+    document.getElementById("adminModal").style.display = "flex";
+    clickCount = 0;
+    alert("Admin Mode On"); // শিওর হওয়ার জন্য
+  }
+});
     // ====================================
     // SUPABASE CONFIG
     // ====================================
